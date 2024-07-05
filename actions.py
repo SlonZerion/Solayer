@@ -208,10 +208,13 @@ async def register_to_solayer(id, context, page):
             await asyncio.sleep(random.uniform(3, 4))
             await page.click('div:text("Phantom")', timeout=5000)
             
-            extension = await switch_to_page_by_title(context, 'Phantom Wallet')
-            await asyncio.sleep(random.uniform(1, 2))
-            await extension.click('button[type="submit"]', timeout=10000)
-            await asyncio.sleep(random.uniform(2, 3))
+            try:
+                extension = await switch_to_page_by_title(context, 'Phantom Wallet')
+                await asyncio.sleep(random.uniform(1, 2))
+                await extension.click('button[type="submit"]', timeout=10000)
+                await asyncio.sleep(random.uniform(2, 3))
+            except:
+                pass
             
             extension = await switch_to_page_by_title(context, 'Phantom Wallet')
             await asyncio.sleep(random.uniform(1, 2))
@@ -219,13 +222,35 @@ async def register_to_solayer(id, context, page):
             await asyncio.sleep(random.uniform(4, 5))
             
             try:
-                await asyncio.sleep(random.uniform(1, 2))
                 await page.click('a:text(" Join Discord ")', timeout=5000)
                 await asyncio.sleep(random.uniform(1, 2))
                 await page.click('a:text(" Follow ")', timeout=5000)
                 await switch_to_page_by_title(context, 'Solayer Dashboard | Solana restaking')
             except:
                 pass
+            
+            with open("ref_codes.txt", 'r') as file:
+                lines = file.readlines()
+            
+            if not lines:
+                logger.error(f"{id} | ref_codes.txt is empty.")
+                return
+            
+            otp_code = lines[0].strip()
+            
+            logger.info(f"{id} | Try to regitster with ref: {otp_code}")
+            
+
+            input_fields = await page.query_selector_all("ng-otp-input input[type='text']")
+            await input_fields[0].fill(otp_code)
+                
+    
+            
+            # await page.fill('#ng-otp-input', str(first_line), timeout=5000) 
+            
+            # Записываем оставшиеся строки обратно в файл
+            with open("ref_codes.txt", 'w') as file:
+                file.writelines(lines[1:])
 
             logger.success(f"{id} | Wallet has been registered to Solayer")
             return

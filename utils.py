@@ -21,7 +21,7 @@ async def switch_to_page_by_title(context, title) -> Page:
 async def phantom_confirm_tx(context):
     extension = await switch_to_page_by_title(context, 'Phantom Wallet')
     await asyncio.sleep(random.uniform(1, 2))
-    await extension.click('button[type="submit"]', timeout=20000)
+    await extension.click('button[data-testid="primary-button"]', timeout=20000)
     return True
 
 
