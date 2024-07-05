@@ -6,7 +6,7 @@ from config import *
 from loguru import logger
 from playwright.async_api import async_playwright
 from utils import get_accounts, get_format_proxy, switch_to_page_by_title
-from actions import restake_on_solblaze, connect_to_solayer, deposit_bsol, deposit_sol, register_to_solayer
+from actions import restake_on_solblaze, deposit_bsol, deposit_sol, register_to_solayer
 
 
 

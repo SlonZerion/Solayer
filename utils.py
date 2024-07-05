@@ -1,5 +1,6 @@
 import asyncio
 import random
+import string
 
 import pandas
 
@@ -58,3 +59,21 @@ def get_accounts():
             ))
         return accounts
 
+
+
+def generate_random_email():
+    # Сгенерируем случайное имя пользователя
+    username_length = random.randint(5, 10)  # Длина имени пользователя от 5 до 10 символов
+    username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=username_length))
+    
+    # Сгенерируем случайный домен
+    domain_length = random.randint(5, 10)  # Длина домена от 5 до 10 символов
+    domain = ''.join(random.choices(string.ascii_lowercase + string.digits, k=domain_length))
+    
+    # Определим доменную зону
+    tld = random.choice(['com', 'net', 'org', 'io', 'biz'])
+
+    # Соберем полный адрес электронной почты
+    email = f"{username}@{domain}.{tld}"
+    
+    return email

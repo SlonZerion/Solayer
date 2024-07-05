@@ -1,10 +1,9 @@
 
-# register_to_solayer - регистрация по инвайт коду на https://app.solayer.org/
-# connect_to_solayer - Подключиться к сайту https://app.solayer.org/
+# register_to_solayer - логин или регистрация по инвайт коду на https://app.solayer.org/
 # restake_on_solblaze - обмен SOL на bSOL через сайт https://stake.solblaze.org/app/
 # deposit_bsol - депозит bSOL
 # deposit_sol - депозит SOL
-LIST_OF_ACTIONS = ["restake_on_solblaze"] # порядок действий
+LIST_OF_ACTIONS = ["register_to_solayer"] # порядок действий
 
 
 ### Solayer deposit
