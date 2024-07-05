@@ -3,7 +3,7 @@
 # restake_on_solblaze - обмен SOL на bSOL через сайт https://stake.solblaze.org/app/
 # deposit_bsol - депозит bSOL
 # deposit_sol - депозит SOL
-LIST_OF_ACTIONS = ["register_to_solayer"] # порядок действий
+LIST_OF_ACTIONS = ["register_to_solayer", "deposit_sol"] # порядок действий
 
 
 ### Solayer deposit

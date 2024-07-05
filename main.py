@@ -10,7 +10,6 @@ from actions import restake_on_solblaze, deposit_bsol, deposit_sol, register_to_
 
 
 
-
 async def run(id, private_key, proxy, semaphore):
     async with semaphore:
         
