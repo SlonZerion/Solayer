@@ -3,10 +3,9 @@ import os
 import random
 import traceback
 from config import *
-from loguru import logger
 from playwright.async_api import async_playwright
-from utils import get_accounts, get_format_proxy, switch_to_page_by_title
-from actions import restake_on_solblaze, deposit_bsol, deposit_sol, register_to_solayer
+from utils import get_accounts, get_format_proxy, switch_to_page_by_title, logger
+from actions import restake_on_solblaze, deposit_bsol, deposit_sol, register_or_login_to_solayer, claim_episode_1
 
 
 
@@ -101,7 +100,7 @@ async def run(id, private_key, proxy, semaphore):
                                 count_errors+=1
                                 
                                         
-                    logger.warning(f"{id} | Wallet is finished work")
+                    logger.info(f"{id} | Wallet is finished work")
                     await asyncio.sleep(10)
                     
                     return
@@ -109,8 +108,8 @@ async def run(id, private_key, proxy, semaphore):
                 
                 
                 
-            except Exception as ex:
-                logger.error(f"{id} | {ex}") # {traceback.format_exc()}
+            except:
+                logger.error(f"{id} | {traceback.format_exc()}") 
                 await asyncio.sleep(1)
                 logger.warning(f"{id} | Retry...")
             finally:

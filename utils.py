@@ -1,15 +1,18 @@
 import asyncio
 import random
 import string
+import traceback
 
 import pandas
 
 from loguru import logger
 from playwright.async_api._generated import Page
 
+logger.add("warnings.log", level="WARNING")
+logger.add("logs.log", level="DEBUG")
 
 async def switch_to_page_by_title(context, title) -> Page:
-    for _ in range(50):
+    for _ in range(30):
         for page in context.pages:
             # print([await page.title()])
             if title == await page.title():
@@ -77,3 +80,31 @@ def generate_random_email():
     email = f"{username}@{domain}.{tld}"
     
     return email
+
+
+from functools import wraps
+
+def retry(max_retries):
+    def decorator(func):
+        @wraps(func)
+        async def wrapper(id, context, page, *args, **kwargs):
+            count_errors = 0
+            for _ in range(max_retries):
+                if count_errors >= max_retries:
+                    logger.error(f"{id} | Error rate of more than {max_retries} | Skip wallet...")
+                    with open("failed.txt", "a") as f:
+                        f.write(f"{id} | {func.__name__}")
+                    return
+                if count_errors > 0:
+                    logger.info(f"{id} | Retry...")
+                try:
+                    return await func(id, context, page, *args, **kwargs)
+                except Exception as ex:
+                    logger.warning(f'{id} | {traceback.format_exc()}')
+                    count_errors += 1
+                    # try:
+                    #     await extension.close()
+                    # except:
+                    #     pass
+        return wrapper
+    return decorator

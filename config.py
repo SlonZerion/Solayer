@@ -1,9 +1,10 @@
 
-# register_to_solayer - логин или регистрация по инвайт коду на https://app.solayer.org/
+# register_or_login_to_solayer - логин или регистрация по инвайт коду на https://app.solayer.org/
 # restake_on_solblaze - обмен SOL на bSOL через сайт https://stake.solblaze.org/app/
 # deposit_bsol - депозит bSOL
 # deposit_sol - депозит SOL
-LIST_OF_ACTIONS = ["register_to_solayer", "deposit_sol"] # порядок действий
+# claim_episod_1 - клейм
+LIST_OF_ACTIONS = ["register_or_login_to_solayer", "claim_episode_1"] # порядок действий
 
 
 ### Solayer deposit
